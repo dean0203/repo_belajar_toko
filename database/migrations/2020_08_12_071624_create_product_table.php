@@ -18,8 +18,8 @@ class CreateProductTable extends Migration
             $table->string('nama_product');
             $table->string('jenis_product');
             $table->integer('jumlah_product');
-            $table->integer('harga_product');
-            $table->timestamps();
+            $table->string('harga_product');
+            
         });
     }
 

@@ -16,10 +16,10 @@ class CreateOrdeTable extends Migration
         Schema::create('orde', function (Blueprint $table) {
             $table->bigIncrements('id_transaksi');
             $table->string('kode_barang');
-            $table->string('tgl_pesan');
+            $table->text('tgl_pesan');
             $table->string('jumlah_pesanan');
             $table->integer('id_cutomers');
-            $table->timestamps();
+
         });
     }
 
