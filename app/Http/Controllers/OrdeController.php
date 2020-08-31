@@ -8,6 +8,37 @@ use Illuminate\Support\Facades\Validator;
 
 class OrdeController extends Controller
 {
+  public function show()
+    {
+        $data_Orde = Orde::join('customers', 'orde.id_customers', 'customers.id_customers')
+                            ->join('product', 'orde.id_transaksi', 'product.id_product')
+                            ->select('orde.id_transaksi',
+                                     'orde.jumlah_pesanan',
+                                     'orde.tgl_pesan',
+                                     'product.id_product',
+                                     'customers.id_customers',
+                                     'customers.nama_customers')
+                                     ->get();
+        return Response()->json($data_Orde);
+    }
+  public function detail($id)
+   {
+        if(order::where('id_transaksi', $id)->exists()){
+            $data_orde = orde::join('customers', 'customer.id_customers', 'orde.id_customers')
+                                ->where('id_transaksi', '=', $id)
+                                ->select('orde.id_transaksi',
+                                         'orde.jumlah_pesanan',
+                                         'orde.tgl_pesan',
+                                         'product.id_barang',
+                                         'customers.id_customers',
+                                         'customers.nama_customers')
+                                ->get();
+            return Response()->json($data_orde);
+        }
+        else{
+            return Response()->json(['message' => 'Tidak Ditemukan']);
+        }
+    }
   public function store(Request $request)
   {
     $validator=Validator::make($request->all(),
