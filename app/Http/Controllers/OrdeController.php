@@ -8,6 +8,35 @@ use Illuminate\Support\Facades\Validator;
 
 class OrdeController extends Controller
 {
+  public function update($id, Request $request)
+  {
+
+    $validator=Validator::make($request->all(),
+      [
+        // 'id_transaksi' => 'required', otomatis ini juga nggak perlu divalidasi lagi
+        'kode_barang' => 'required',
+        'tgl_pesan' => 'required',
+        'jumlah_pesanan' => 'required',
+        'id_customers' => 'required'
+      ]
+    );
+    if($validator->fails()){
+      return Response()->json($validator->errors());
+    }
+    $ubah = Orde::where('id_transaksi',$id)->update([
+      // 'id_transaksi'=> $request->id_transaksi, ini nggak perlu karena sudah auto increment
+      'kode_barang'=>$request->kode_barang,
+      'tgl_pesan'=>$request->tgl_pesan,
+      'jumlah_pesanan'=>$request->jumlah_pesanan,
+      'id_customers'=>$request->id_customers
+    ]);
+    if ($ubah) {
+      return Response()->json(['status'=>1]);
+    }
+    else {
+      return Response()->json(['status'=>0]);
+    }
+  }
   public function show()
     {
         $data_Orde = Orde::join('customers', 'orde.id_customers', 'customers.id_customers')
