@@ -8,6 +8,16 @@ use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
+  public function destroy($id)
+  {
+    $hapus = Product ::where('id_product' , $id)->delete();
+    if($hapus){
+      return Response()->json(['status' => 1]);
+    }
+    else {
+      return Response()->json(['status' => 0]);
+    }
+  }
   public function show() {
     return Product::all();
   }

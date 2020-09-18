@@ -8,6 +8,16 @@ use Illuminate\Support\Facades\Validator;
 
 class CustomersController extends Controller
 {
+  public function destroy($id)
+  {
+    $hapus = Customers ::where('id_customers' , $id)->delete();
+    if($hapus){
+      return Response()->json(['status' => 1]);
+    }
+    else {
+      return Response()->json(['status' => 0]);
+    }
+  }
   public function show() {
     return Customers::all();
   }

@@ -20,11 +20,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route:: post('/Customers' , 'CustomersController@store');
 Route:: get('/Customers', 'CustomersController@show');
 Route:: get('/customers/{id}', 'ordeController@detail');
+Route::delete('/Customers/{id}', 'CustomersController@destroy');
 
 Route:: post('/Orde' , 'OrdeController@store');
 Route::get('/Orde', 'OrdeController@show');
 Route::get('/Orde/{id}', 'OrdeController@detail');
 Route::put('/Orde/{id}', 'OrdeController@update');
+Route::delete('/Orde/{id}', 'OrdeController@destroy');
 
 Route:: post('/Product' , 'ProductController@store');
 Route:: get ('/Product' , 'ProductController@show');
+Route::delete('/Product/{id}', 'ProductController@destroy');

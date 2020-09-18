@@ -8,6 +8,16 @@ use Illuminate\Support\Facades\Validator;
 
 class OrdeController extends Controller
 {
+  public function destroy($id)
+  {
+    $hapus = Orde ::where('id_transaksi' , $id)->delete();
+    if($hapus){
+      return Response()->json(['status' => 1]);
+    }
+    else {
+      return Response()->json(['status' => 0]);
+    }
+  }
   public function update($id, Request $request)
   {
 
